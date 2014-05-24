@@ -26,9 +26,9 @@
     
     hidden = YES;
     self.dropDownMenu = [CPDropdownMenu menu];
-    self.dropDownMenu.maxItemInRowCount = 5;
+    self.dropDownMenu.maxItemInRowCount = 4;
     /**
-     *  15個のボタンを生成
+     *  14個のボタンを生成
      */
     for (NSInteger i = 0; i < 14; i++) {
         [self.dropDownMenu addButtonWithTitle:@"test" icon:[UIImage imageNamed:@"icon-briefcasetwo"] tapHandler:^{

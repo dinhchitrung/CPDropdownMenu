@@ -8,7 +8,7 @@
 
 #import "CPDropdownMenu.h"
 
-
+#pragma mark - CPDropdownMenuItemButton
 
 @implementation CPDropdownMenuItemButton
 - (id)initWithFrame:(CGRect)frame
@@ -56,6 +56,8 @@
 
 @end
 
+#pragma mark - CPDropdownMenuCell
+
 @interface CPDropdownMenuCell : UICollectionViewCell
 - (void)configureCellWithTitle:(NSString *)title icon:(UIImage *)icon handler:(ButtonTapHandlerBlock)handler;
 @end
@@ -76,7 +78,6 @@
 - (void)configureView
 {
     itemButton = [[CPDropdownMenuItemButton alloc] initWithFrame:CGRectMake(0, 0, 64, 64)];
-    
     [self.contentView addSubview:itemButton];
 }
 
@@ -88,6 +89,8 @@
 }
 
 @end
+
+#pragma mark - CPDropdownMenu
 
 @interface CPDropdownMenu ()
 <
@@ -107,15 +110,14 @@ UICollectionViewDelegateFlowLayout
     CPDropdownMenu *menu = [[CPDropdownMenu alloc] initWithFrame:CGRectMake(0, 64, 320, 300)];
     menu.backgroundColor = [UIColor blueColor];
     CGRect rect = menu.frame;
-    rect.origin.y = -250;
+    rect.origin.y = -300;
     menu.frame = rect;
-    
     return menu;
 }
 
 - (id)init
 {
-    self = [self initWithFrame:CGRectMake(0, 64, 320, 250)];
+    self = [self initWithFrame:CGRectMake(0, 64, 320, 300)];
     if (self) {
         
     }
@@ -164,7 +166,7 @@ UICollectionViewDelegateFlowLayout
 - (void)hide
 {
     CGRect rect = self.frame;
-    rect.origin.y = -250;
+    rect.origin.y = -300;
     [UIView animateWithDuration:.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^ {
         self.frame = rect;
     } completion:^(BOOL finished){
@@ -232,6 +234,13 @@ UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.section == self.maxItemInRowCount - 1) {
+        NSInteger restCount = buttonItems.count - ((buttonItems.count / self.maxItemInRowCount) * self.maxItemInRowCount);
+        CGFloat fullWidth = CGRectGetWidth(self.bounds)/restCount;
+        CGFloat length = CGRectGetWidth(self.bounds)/self.maxItemInRowCount;
+        return CGSizeMake(fullWidth, length);
+    }
+
     CGFloat length = CGRectGetWidth(self.bounds)/self.maxItemInRowCount;
     return CGSizeMake(length, length);
 }

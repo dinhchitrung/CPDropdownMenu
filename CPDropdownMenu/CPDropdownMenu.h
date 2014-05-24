@@ -19,14 +19,9 @@ typedef void(^ButtonTapHandlerBlock)();
 @end
 
 @interface CPDropdownMenu : UIView
-
 @property (nonatomic, assign) NSInteger maxItemInRowCount;
 + (instancetype)menu;
-
-
 - (void)show;
 - (void)hide;
-
 - (void)addButtonWithTitle:(NSString *)title icon:(UIImage *)icon tapHandler:(ButtonTapHandlerBlock)handler;
-
 @end
