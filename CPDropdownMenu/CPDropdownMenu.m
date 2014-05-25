@@ -156,10 +156,11 @@ UICollectionViewDelegateFlowLayout
 {
     CGRect rect = self.frame;
     rect.origin.y = 64;
-    [UIView animateWithDuration:.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^ {
+
+    [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.frame = rect;
-    } completion:^(BOOL finished){
-        
+    } completion:^(BOOL finished) {
+
     }];
 }
 
@@ -167,10 +168,10 @@ UICollectionViewDelegateFlowLayout
 {
     CGRect rect = self.frame;
     rect.origin.y = -300;
-    [UIView animateWithDuration:.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^ {
+    [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.frame = rect;
-    } completion:^(BOOL finished){
-        
+    } completion:^(BOOL finished) {
+
     }];
 }
 
