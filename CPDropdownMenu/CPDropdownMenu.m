@@ -12,7 +12,7 @@
 
 @implementation CPDropdownMenuItemButton {
     UIImageView *imageView;
-
+    UILabel *label;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -31,7 +31,7 @@
     [imageView setFrame:CGRectMake(24, 5, 16, 16)];
     [self addSubview:imageView];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,30, 50, 15)];
+    label = [[UILabel alloc] initWithFrame:CGRectMake(0,30, 50, 15)];
     label.font = [UIFont systemFontOfSize:10];
     label.textAlignment = NSTextAlignmentCenter;
     self.titleLabel = label;
@@ -59,7 +59,15 @@
 
 - (void)layoutSubviews
 {
-    
+    imageView.center = self.center;
+    CGRect imageViewframe = imageView.frame;
+    imageViewframe.origin.y = 10;
+    imageView.frame = imageViewframe;
+
+    label.center = self.center;
+    CGRect labelframe = label.frame;
+    labelframe.origin.y = 30;
+    label.frame = labelframe;
 }
 
 @end
@@ -277,7 +285,7 @@ UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSInteger numberOfItemsInSection = [collectionView numberOfItemsInSection:indexPath.section];
-    if (numberOfItemsInSection == self.maxItemInRowCount - 1) {
+    if (numberOfItemsInSection != self.maxItemInRowCount) {
         /**
          *  端数の列
          */

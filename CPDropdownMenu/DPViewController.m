@@ -26,7 +26,7 @@
     
     hidden = YES;
     self.dropDownMenu = [CPDropdownMenu menu];
-    self.dropDownMenu.maxItemInRowCount = 5;
+    self.dropDownMenu.maxItemInRowCount = 4;
     /**
      *  14個のボタンを生成
      */
