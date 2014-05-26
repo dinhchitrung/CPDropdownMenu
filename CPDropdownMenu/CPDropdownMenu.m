@@ -11,8 +11,8 @@
 #pragma mark - CPDropdownMenuItemButton
 
 @implementation CPDropdownMenuItemButton {
-    UIImageView *imageView
-    
+    UIImageView *imageView;
+
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -26,7 +26,7 @@
 
 - (void)configureView
 {
-    UImage *image = [UIImage imageNamed:@"icon-briefcasetwo"];
+    UIImage *image = [UIImage imageNamed:@"icon-briefcasetwo"];
     imageView = [[UIImageView alloc] initWithImage:image];
     [imageView setFrame:CGRectMake(24, 5, 16, 16)];
     [self addSubview:imageView];
