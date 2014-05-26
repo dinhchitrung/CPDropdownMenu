@@ -19,7 +19,7 @@ typedef void(^ButtonTapHandlerBlock)();
 @end
 
 @interface CPDropdownMenu : UIView
-@property (nonatomic, assign) NSInteger maxItemInRowCount;
+@property (nonatomic, assign, readonly) NSInteger maxItemInRowCount;
 + (instancetype)menu;
 - (void)show;
 - (void)hide;
