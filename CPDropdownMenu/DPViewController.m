@@ -35,7 +35,10 @@
             NSLog(@"Handle!!!");
         }];
     }
-    
+//    [self.dropDownMenu addButtonWithTitle:@"写真" icon:[UIImage imageNamed:@"layer"] tapHandler:^{
+//        NSLog(@"Handle!!!");
+//    }];
+
     [self.view addSubview:self.dropDownMenu];
 }
 

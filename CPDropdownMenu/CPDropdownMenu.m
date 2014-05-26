@@ -12,7 +12,6 @@
 
 @implementation CPDropdownMenuItemButton
 
-
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -67,7 +66,6 @@
     CGRect iconImageViewFrame = self.iconView.frame;
     iconImageViewFrame.origin.y = height/4;
     self.iconView.frame = iconImageViewFrame;
-
 
     self.titleLabel.center = self.center;
     CGRect labelframe = self.titleLabel.frame;
@@ -167,9 +165,8 @@ UICollectionViewDelegateFlowLayout
     buttonItems = [NSMutableArray array];
     
     flowLayout = [[UICollectionViewFlowLayout alloc] init];
-    flowLayout.sectionInset = UIEdgeInsetsMake(.5, 0, 0, 0);
     flowLayout.minimumLineSpacing = 0;  // セクションとアイテムの間隔
-    flowLayout.minimumInteritemSpacing = .5;  // アイテム同士の間隔
+    flowLayout.minimumInteritemSpacing = 0;  // アイテム同士の間隔
     
     menuCollectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
     menuCollectionView.delegate = self;
@@ -276,10 +273,10 @@ UICollectionViewDelegateFlowLayout
     CPDropdownMenuCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([CPDropdownMenuCell class]) forIndexPath:indexPath];
     
     cell.backgroundColor = [UIColor colorWithRed:30/255.f green:31/255.f blue:32/255.f alpha:1];
-    
-    for (NSDictionary *dictionary in buttonItems) {
-        [cell configureCellWithTitle:dictionary[@"title"] icon:dictionary[@"icon"] handler:dictionary[@"handler"]];
-    }
+
+    NSDictionary *dictionary = buttonItems[indexPath.item];
+    [cell configureCellWithTitle:dictionary[@"title"] icon:dictionary[@"icon"] handler:dictionary[@"handler"]];
+
     return cell;
 }
 
@@ -290,23 +287,20 @@ UICollectionViewDelegateFlowLayout
     NSInteger fullSectionCount = (NSInteger) buttonItems.count / self.maxItemInRowCount;
     
     NSInteger numberOfItemsInSection = [collectionView numberOfItemsInSection:indexPath.section];
+
+    CGFloat width,height;
     if (numberOfItemsInSection != self.maxItemInRowCount) {
         /**
          *  端数の列
          */
         NSInteger restCount = buttonItems.count - (fullSectionCount * self.maxItemInRowCount);
-        CGFloat fullWidth = CGRectGetWidth(self.bounds)/restCount;
-        CGFloat length = CGRectGetWidth(self.bounds)/self.maxItemInRowCount;
-        return CGSizeMake(fullWidth, length);
+        width = ceilf(CGRectGetWidth(self.bounds)/restCount);
+        height = ceilf(CGRectGetWidth(self.bounds)/self.maxItemInRowCount);
+    } else {
+        height = width = ceilf(CGRectGetWidth(self.bounds)/self.maxItemInRowCount);
     }
 
-    CGFloat length = CGRectGetWidth(self.bounds)/self.maxItemInRowCount;
-    CGSize cellSize = CGSizeMake(length, length);
-    if (indexPath.item == 0) {
-        cellSize.width -= 1;
-    } else if (indexPath.item == numberOfItemsInSection-1) {
-        cellSize.width -= 0.5;
-    }
+    CGSize cellSize = CGSizeMake(width,height);
     return cellSize;
 }
 
