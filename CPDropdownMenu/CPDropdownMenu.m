@@ -255,7 +255,7 @@ UICollectionViewDelegateFlowLayout
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    NSInteger fullSectionCount = (NSInteger) buttonItems.count / self.maxItemInRowCount;
+    NSInteger fullSectionCount = buttonItems.count / self.maxItemInRowCount;
     if (section == buttonItems.count / self.maxItemInRowCount) {
         NSInteger restCount = buttonItems.count - (fullSectionCount * self.maxItemInRowCount);
         return restCount;

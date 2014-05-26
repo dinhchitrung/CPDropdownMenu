@@ -30,15 +30,11 @@
     /**
      *  14個のボタンを生成
      */
-    for (NSInteger i = 0; i < 13; i++) {
-        [self.dropDownMenu addButtonWithTitle:@"写真" icon:[UIImage imageNamed:@"layer"] tapHandler:^{
+    for (NSInteger i = 0; i < 14; i++) {
+        [self.dropDownMenu addButtonWithTitle:@"写真" icon:[UIImage imageNamed:@"fork"] tapHandler:^{
             NSLog(@"Handle!!!");
         }];
     }
-    
-    [self.dropDownMenu addButtonWithTitle:@"写真" icon:[UIImage imageNamed:@"fork"] tapHandler:^{
-        NSLog(@"Handle!!!");
-    }];
     
     [self.view addSubview:self.dropDownMenu];
 }
