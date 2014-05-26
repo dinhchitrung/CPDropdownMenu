@@ -36,6 +36,8 @@
     label.textColor = [UIColor whiteColor];
     self.titleLabel = label;
     [self addSubview:self.titleLabel];
+    
+    self.backgroundColor = [UIColor colorWithRed:30/255.f green:31/255.f blue:32/255.f alpha:1];
 }
 
 - (void)setTitle:(NSString *)title
@@ -55,6 +57,11 @@
     if (self.buttonTapHandlerBlock) {
         self.buttonTapHandlerBlock();
     }
+}
+
+- (void) setHighlighted:(BOOL)highlighted {
+    [super setHighlighted: highlighted];
+    self.alpha = highlighted ? 0.5f : 1.0f;
 }
 
 - (void)layoutSubviews
@@ -274,8 +281,6 @@ UICollectionViewDelegateFlowLayout
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CPDropdownMenuCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([CPDropdownMenuCell class]) forIndexPath:indexPath];
-    
-    cell.backgroundColor = [UIColor colorWithRed:30/255.f green:31/255.f blue:32/255.f alpha:1];
     
     for (NSDictionary *dictionary in buttonItems) {
         [cell configureCellWithTitle:dictionary[@"title"] icon:dictionary[@"icon"] handler:dictionary[@"handler"]];
