@@ -10,7 +10,10 @@
 
 #pragma mark - CPDropdownMenuItemButton
 
-@implementation CPDropdownMenuItemButton
+@implementation CPDropdownMenuItemButton {
+    UIImageView *imageView
+    
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -23,8 +26,8 @@
 
 - (void)configureView
 {
-    UIImage *image = [UIImage imageNamed:@"icon-briefcasetwo"];
-    UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+    UImage *image = [UIImage imageNamed:@"icon-briefcasetwo"];
+    imageView = [[UIImageView alloc] initWithImage:image];
     [imageView setFrame:CGRectMake(24, 5, 16, 16)];
     [self addSubview:imageView];
     
@@ -54,6 +57,11 @@
     }
 }
 
+- (void)layoutSubviews
+{
+    
+}
+
 @end
 
 #pragma mark - CPDropdownMenuCell
@@ -78,7 +86,8 @@
 
 - (void)configureView
 {
-    itemButton = [[CPDropdownMenuItemButton alloc] initWithFrame:CGRectMake(0, 0, 64, 64)];
+    itemButton = [[CPDropdownMenuItemButton alloc] initWithFrame:self.bounds];
+    itemButton.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self.contentView addSubview:itemButton];
 }
 
@@ -105,13 +114,13 @@ UICollectionViewDelegateFlowLayout
 @implementation CPDropdownMenu {
     NSMutableArray *buttonItems;
     UICollectionViewFlowLayout *flowLayout;
-    UICollectionView *collectionView;
+    UICollectionView *_collectionView;
 }
 
 + (instancetype)menu
 {
     CPDropdownMenu *menu = [[CPDropdownMenu alloc] initWithFrame:CGRectMake(0, 64, 320, 400)];
-    menu.backgroundColor = [UIColor blueColor];
+    menu.backgroundColor = [UIColor clearColor];
     CGRect rect = menu.frame;
     rect.origin.y = -400;
     menu.frame = rect;
@@ -145,20 +154,19 @@ UICollectionViewDelegateFlowLayout
     flowLayout.minimumLineSpacing = 0;  // セクションとアイテムの間隔
     flowLayout.minimumInteritemSpacing = 0;  // アイテム同士の間隔
     
-    collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
-    collectionView.delegate = self;
-    collectionView.dataSource = self;
-    collectionView.backgroundColor = [UIColor lightGrayColor];
+    _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:flowLayout];
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    _collectionView.backgroundColor = [UIColor lightGrayColor];
     
-    [collectionView registerClass:[CPDropdownMenuCell class] forCellWithReuseIdentifier:NSStringFromClass([CPDropdownMenuCell class])];
+    [_collectionView registerClass:[CPDropdownMenuCell class] forCellWithReuseIdentifier:NSStringFromClass([CPDropdownMenuCell class])];
     
-    [self addSubview:collectionView];
+    [self addSubview:_collectionView];
 }
 
 - (void)show
 {
     CGRect rect = self.frame;
-<<<<<<< HEAD
     //rect.origin.y = 64;
     if (buttonItems.count % self.maxItemInRowCount == 0) {
         /**
@@ -180,12 +188,12 @@ UICollectionViewDelegateFlowLayout
         rectCollectionView = CGRectMake(0, 0, 320, ((NSInteger) buttonItems.count / self.maxItemInRowCount + 1) * 320/self.maxItemInRowCount);
     }
     //collectionView = [[UICollectionView alloc] initWithFrame:rect collectionViewLayout:flowLayout];
-    collectionView.frame = rectCollectionView;
-    collectionView.delegate = self;
-    collectionView.dataSource = self;
-    collectionView.backgroundColor = [UIColor lightGrayColor];
-    [collectionView registerClass:[CPDropdownMenuCell class] forCellWithReuseIdentifier:NSStringFromClass([CPDropdownMenuCell class])];
-    [self addSubview:collectionView];
+    _collectionView.frame = rectCollectionView;
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    _collectionView.backgroundColor = [UIColor lightGrayColor];
+    [_collectionView registerClass:[CPDropdownMenuCell class] forCellWithReuseIdentifier:NSStringFromClass([CPDropdownMenuCell class])];
+    [self addSubview:_collectionView];
 
     [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.frame = rect;
@@ -197,7 +205,6 @@ UICollectionViewDelegateFlowLayout
 - (void)hide
 {
     CGRect rect = self.frame;
-<<<<<<< HEAD
     if (buttonItems.count % self.maxItemInRowCount == 0) {
         rect.origin.y = - ((NSInteger) buttonItems.count / self.maxItemInRowCount) * 320/self.maxItemInRowCount;
     } else {
@@ -236,7 +243,6 @@ UICollectionViewDelegateFlowLayout
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    
     if (section == buttonItems.count / self.maxItemInRowCount) {
         NSInteger restCount = buttonItems.count - ((buttonItems.count / self.maxItemInRowCount) * self.maxItemInRowCount);
         return restCount;
@@ -270,7 +276,8 @@ UICollectionViewDelegateFlowLayout
 
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == self.maxItemInRowCount - 1) {
+    NSInteger numberOfItemsInSection = [collectionView numberOfItemsInSection:indexPath.section];
+    if (numberOfItemsInSection == self.maxItemInRowCount - 1) {
         /**
          *  端数の列
          */
