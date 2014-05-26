@@ -15,6 +15,8 @@ typedef void(^ButtonTapHandlerBlock)();
 @property (nonatomic, strong) UIImageView *iconView;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) UIImage *icon;
+@property (nonatomic, strong) UIColor *backgroundColor;
+@property (nonatomic, strong) UIColor *highlightBackgroundColor;
 @property (nonatomic, copy) ButtonTapHandlerBlock buttonTapHandlerBlock;
 @end
 

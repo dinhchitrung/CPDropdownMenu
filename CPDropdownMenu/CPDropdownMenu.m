@@ -35,8 +35,6 @@
     label.textColor = [UIColor whiteColor];
     self.titleLabel = label;
     [self addSubview:self.titleLabel];
-    
-    self.backgroundColor = [UIColor colorWithRed:30/255.f green:31/255.f blue:32/255.f alpha:1];
 }
 
 - (void)setTitle:(NSString *)title
@@ -51,16 +49,27 @@
     self.iconView.image = icon;
 }
 
+- (void)setBackgroundColor:(UIColor *)backgroundColor
+{
+    [super setBackgroundColor:backgroundColor];
+    _backgroundColor = backgroundColor;
+}
+
+- (void)setHighlightBackgroundColor:(UIColor *)highlightBackgroundColor
+{
+    _highlightBackgroundColor = highlightBackgroundColor;
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+    [super setBackgroundColor:highlighted ? _highlightBackgroundColor : _backgroundColor];
+}
+
 - (void)endTrackingWithTouch:(UITouch *)touch withEvent:(UIEvent *)event
 {
     if (self.buttonTapHandlerBlock) {
         self.buttonTapHandlerBlock();
     }
-}
-
-- (void) setHighlighted:(BOOL)highlighted {
-    [super setHighlighted: highlighted];
-    self.alpha = highlighted ? 0.5f : 1.0f;
 }
 
 - (void)layoutSubviews
@@ -114,6 +123,8 @@
     itemButton.title = title;
     itemButton.icon = icon;
     itemButton.buttonTapHandlerBlock = handler;
+    itemButton.backgroundColor = [UIColor colorWithRed:51/255.f green:51/255.f blue:102/255.f alpha:1];
+    itemButton.highlightBackgroundColor = [UIColor colorWithRed:0/255.f green:0/255.f blue:102/255.f alpha:1];
 }
 
 @end
@@ -167,7 +178,7 @@ UICollectionViewDelegateFlowLayout
 - (void)configureView
 {
     self.maxItemInRowCount = 4;
-    self.backgroundColor = [UIColor whiteColor];
+    //self.backgroundColor = [UIColor whiteColor];
     self.clipsToBounds = YES;
     buttonItems = [NSMutableArray array];
     
@@ -279,7 +290,7 @@ UICollectionViewDelegateFlowLayout
 {
     CPDropdownMenuCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([CPDropdownMenuCell class]) forIndexPath:indexPath];
     
-    cell.backgroundColor = [UIColor colorWithRed:30/255.f green:31/255.f blue:32/255.f alpha:1];
+    //cell.backgroundColor = [UIColor colorWithRed:30/255.f green:31/255.f blue:32/255.f alpha:1];
 
     NSDictionary *dictionary = buttonItems[indexPath.item];
     [cell configureCellWithTitle:dictionary[@"title"] icon:dictionary[@"icon"] handler:dictionary[@"handler"]];
