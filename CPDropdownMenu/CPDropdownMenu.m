@@ -28,11 +28,11 @@
 {
     UIImage *image = [UIImage imageNamed:@"icon-briefcasetwo"];
     imageView = [[UIImageView alloc] initWithImage:image];
-    [imageView setFrame:CGRectMake(24, 5, 16, 16)];
+    [imageView setFrame:CGRectMake(0, 0, 28, 28)];
     [self addSubview:imageView];
     
-    label = [[UILabel alloc] initWithFrame:CGRectMake(0,30, 50, 15)];
-    label.font = [UIFont systemFontOfSize:10];
+    label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 50, 15)];
+    label.font = [UIFont systemFontOfSize:14];
     label.textAlignment = NSTextAlignmentCenter;
     self.titleLabel = label;
     [self addSubview:self.titleLabel];
@@ -59,14 +59,16 @@
 
 - (void)layoutSubviews
 {
+    NSInteger height = self.frame.size.height;
+    
     imageView.center = self.center;
     CGRect imageViewframe = imageView.frame;
-    imageViewframe.origin.y = 10;
+    imageViewframe.origin.y = height/4;
     imageView.frame = imageViewframe;
 
     label.center = self.center;
     CGRect labelframe = label.frame;
-    labelframe.origin.y = 30;
+    labelframe.origin.y = height/4 + 35;
     label.frame = labelframe;
 }
 
