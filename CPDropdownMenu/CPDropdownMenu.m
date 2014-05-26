@@ -158,6 +158,7 @@ UICollectionViewDelegateFlowLayout
 - (void)show
 {
     CGRect rect = self.frame;
+<<<<<<< HEAD
     //rect.origin.y = 64;
     if (buttonItems.count % self.maxItemInRowCount == 0) {
         /**
@@ -186,26 +187,26 @@ UICollectionViewDelegateFlowLayout
     [collectionView registerClass:[CPDropdownMenuCell class] forCellWithReuseIdentifier:NSStringFromClass([CPDropdownMenuCell class])];
     [self addSubview:collectionView];
 
-    
-    [UIView animateWithDuration:.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^ {
+    [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.frame = rect;
-    } completion:^(BOOL finished){
-        
+    } completion:^(BOOL finished) {
+
     }];
 }
 
 - (void)hide
 {
     CGRect rect = self.frame;
+<<<<<<< HEAD
     if (buttonItems.count % self.maxItemInRowCount == 0) {
         rect.origin.y = - ((NSInteger) buttonItems.count / self.maxItemInRowCount) * 320/self.maxItemInRowCount;
     } else {
         rect.origin.y = - ((NSInteger) buttonItems.count / self.maxItemInRowCount + 1) * 320/self.maxItemInRowCount;
     }
-    [UIView animateWithDuration:.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^ {
+    [UIView animateWithDuration:0.5f delay:0 usingSpringWithDamping:1 initialSpringVelocity:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
         self.frame = rect;
-    } completion:^(BOOL finished){
-        
+    } completion:^(BOOL finished) {
+
     }];
 }
 
