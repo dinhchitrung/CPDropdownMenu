@@ -11,6 +11,7 @@
 #pragma mark - CPDropdownMenuItemButton
 
 @implementation CPDropdownMenuItemButton
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -28,7 +29,6 @@
     [self addSubview:imageView];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0,30, 50, 15)];
-    label.text = @"item";
     label.font = [UIFont systemFontOfSize:10];
     label.textAlignment = NSTextAlignmentCenter;
     self.titleLabel = label;
@@ -66,6 +66,7 @@
 {
     CPDropdownMenuItemButton *itemButton;
 }
+
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -107,17 +108,17 @@ UICollectionViewDelegateFlowLayout
 
 + (instancetype)menu
 {
-    CPDropdownMenu *menu = [[CPDropdownMenu alloc] initWithFrame:CGRectMake(0, 64, 320, 300)];
+    CPDropdownMenu *menu = [[CPDropdownMenu alloc] initWithFrame:CGRectMake(0, 64, 320, 400)];
     menu.backgroundColor = [UIColor blueColor];
     CGRect rect = menu.frame;
-    rect.origin.y = -300;
+    rect.origin.y = -400;
     menu.frame = rect;
     return menu;
 }
 
 - (id)init
 {
-    self = [self initWithFrame:CGRectMake(0, 64, 320, 300)];
+    self = [self initWithFrame:CGRectMake(0, 64, 320, 400)];
     if (self) {
         
     }
@@ -155,7 +156,12 @@ UICollectionViewDelegateFlowLayout
 - (void)show
 {
     CGRect rect = self.frame;
-    rect.origin.y = 64;
+    //rect.origin.y = 64;
+    if (buttonItems.count % self.maxItemInRowCount == 0) {
+        rect = CGRectMake(0, 64, 320, ((NSInteger) buttonItems.count / self.maxItemInRowCount) * 320/self.maxItemInRowCount);
+    } else {
+        rect = CGRectMake(0, 64, 320, ((NSInteger) buttonItems.count / self.maxItemInRowCount + 1) * 320/self.maxItemInRowCount);
+    }
     [UIView animateWithDuration:.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^ {
         self.frame = rect;
     } completion:^(BOOL finished){
@@ -166,7 +172,7 @@ UICollectionViewDelegateFlowLayout
 - (void)hide
 {
     CGRect rect = self.frame;
-    rect.origin.y = -300;
+    //rect.origin.y = -400;
     [UIView animateWithDuration:.5f delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^ {
         self.frame = rect;
     } completion:^(BOOL finished){
@@ -235,6 +241,9 @@ UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == self.maxItemInRowCount - 1) {
+        /**
+         *  端数の列
+         */
         NSInteger restCount = buttonItems.count - ((buttonItems.count / self.maxItemInRowCount) * self.maxItemInRowCount);
         CGFloat fullWidth = CGRectGetWidth(self.bounds)/restCount;
         CGFloat length = CGRectGetWidth(self.bounds)/self.maxItemInRowCount;
